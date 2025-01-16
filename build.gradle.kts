@@ -3,6 +3,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.micronaut.application") version "4.4.4"
     id("io.micronaut.aot") version "4.4.4"
+    id("io.micronaut.openapi") version "4.4.4"
 }
 
 version = "0.1"
@@ -19,6 +20,8 @@ dependencies {
     annotationProcessor("io.micronaut.openapi:micronaut-openapi")
     implementation("io.micronaut:micronaut-jackson-databind")
     implementation("io.micronaut.jsonschema:micronaut-json-schema-annotations")
+    implementation("jakarta.validation:jakarta.validation-api")
+    implementation("io.micronaut.serde:micronaut-serde-jackson")
     compileOnly("io.micronaut:micronaut-http-client")
     compileOnly("io.micronaut.openapi:micronaut-openapi-annotations")
     compileOnly("org.projectlombok:lombok")
@@ -56,6 +59,13 @@ micronaut {
         deduceEnvironment = true
         optimizeNetty = true
         replaceLogbackXml = true
+    }
+
+    openapi {
+        server(file("src/main/resources/openapi/openapi-v1.yml")) {
+            apiPackageName = "com.example.controller"
+            modelPackageName = "com.example.dto"
+        }
     }
 
 }

@@ -1,0 +1,48 @@
+openapi: 3.0.0 # <1>
+info:
+  description: This is a library API
+  version: 1.0.0
+  title: Library
+  license:
+    name: Apache-2.0
+    url: "https://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+  - name: books
+    description: Search for books and add new ones
+
+paths:
+  /search:
+    get: # <1>
+      tags:
+        - books # <2>
+      summary: Search for a book
+      operationId: getAll # <3>
+      responses: # <6>
+        "200": # <7>
+          description: Success
+          content:
+            "application/json":
+              schema:
+                type: array,
+                items:
+                  $ref: "#/components/schemas/BookInfo"
+        "400": # <8>
+          description: Bad Request
+#end::add[]
+#tag::components[]
+components:
+  schemas:
+    BookInfo:
+      title: Book Info # <1>
+      description: Object containg all the info about a book
+      type: object
+      properties: # <2>
+        name: {type: string}
+        availability: {$ref: "#/components/schemas/BookAvailability"} # <3>
+        author: {type: string, minLength: 3}
+        isbn: {type: string, pattern: "[0-9]{13}"}
+      required: ["name", "availability"]
+    BookAvailability: # <4>
+      type: string
+      enum: ["available", "not available", "reserved"]
+#end::components[]
