@@ -13,6 +13,6 @@ import java.util.List;
 public class ClientV6 implements BooksClientV6Api {
 
     public Mono<List<BookInfoV6>> getAllV6() {
-        return Mono.just(List.of(new BookInfoV6("Brave new world", "Haxley")));
+        return Mono.just(List.of(new BookInfoV6("Brave new world", "Oldos Haksli")));
     }
 }

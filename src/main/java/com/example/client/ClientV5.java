@@ -11,6 +11,6 @@ import java.util.List;
 public class ClientV5 implements BooksClientV5Api {
 
     public Mono<List<BookInfoV5>> getAllV5() {
-        return Mono.just(List.of(new BookInfoV5("Brave new world", "Haxley")));
+        return Mono.just(List.of(new BookInfoV5("Brave new world", "Oldos Haksli")));
     }
 }

@@ -11,6 +11,6 @@ import java.util.List;
 public class ClientV4 implements BooksClientV4Api {
 
     public Mono<List<BookInfoV4>> getAllV4() {
-        return Mono.just(List.of(new BookInfoV4("Brave new world", "Haxley")));
+        return Mono.just(List.of(new BookInfoV4("Brave new world", "Oldos Haksli")));
     }
 }
