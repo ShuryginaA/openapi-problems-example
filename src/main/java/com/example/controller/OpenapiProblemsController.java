@@ -11,6 +11,6 @@ public class OpenapiProblemsController implements BooksApi{
 
     @Override
     public Mono<List<BookInfo>> getAll() {
-        return Mono.just(List.of(new BookInfo("Brave new world", "Haxly")));
+        return Mono.just(List.of(new BookInfo("Brave new world", "Oldos Haksli")));
     }
 }
