@@ -7,16 +7,16 @@ info:
     name: Apache-2.0
     url: "https://www.apache.org/licenses/LICENSE-2.0.html"
 tags:
-  - name: books
+  - name: books client v3
     description: Search for books
 
 paths:
-  /search:
+  /external/v3/search:
     get:
       tags:
-        - books
+        - books client v3
       summary: Search for a book
-      operationId: getAll
+      operationId: getAllV3
       responses:
         "200":
           description: Success
@@ -25,14 +25,14 @@ paths:
               schema:
                 type: array,
                 items:
-                  $ref: "#/components/schemas/BookInfo"
+                  $ref: "#/components/schemas/BookInfoV3"
         "400":
           description: Bad Request
 
 components:
   schemas:
-    BookInfo:
-      title: Book Info
+    BookInfoV3:
+      title: External book Info
       description: Object containg all the info about a book
       type: object
       properties:
