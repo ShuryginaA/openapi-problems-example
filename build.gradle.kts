@@ -33,8 +33,10 @@ dependencies {
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     implementation("io.micronaut:micronaut-http-client")
     implementation("io.micronaut.validation:micronaut-validation")
+    implementation("io.micronaut.reactor:micronaut-reactor")
+    implementation("io.micronaut.reactor:micronaut-reactor-http-client")
     compileOnly("io.micronaut:micronaut-http-client")
-//    compileOnly("io.micronaut.openapi:micronaut-openapi-annotations")
+    compileOnly("io.micronaut.openapi:micronaut-openapi-annotations")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("ch.qos.logback:logback-classic")
 }
