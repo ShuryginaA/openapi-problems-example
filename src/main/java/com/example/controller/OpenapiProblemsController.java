@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 @Controller("/api/v1")
-public class OpenapiProblemsController implements BooksApi{
+public class OpenapiProblemsController implements BooksApi {
 
     @Override
     public Mono<List<BookInfo>> getAll() {

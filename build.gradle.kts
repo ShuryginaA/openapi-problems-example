@@ -1,9 +1,12 @@
+import org.openapitools.generator.gradle.plugin.tasks.GenerateTask
+
+
 plugins {
-    id("groovy") 
+    id("groovy")
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.micronaut.application") version "4.4.4"
     id("io.micronaut.aot") version "4.4.4"
-    id("io.micronaut.openapi") version "4.4.4"
+    id("org.openapi.generator") version "7.10.0"
 }
 
 version = "0.1"
@@ -23,7 +26,7 @@ dependencies {
     implementation("jakarta.validation:jakarta.validation-api")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
     compileOnly("io.micronaut:micronaut-http-client")
-    compileOnly("io.micronaut.openapi:micronaut-openapi-annotations")
+//    compileOnly("io.micronaut.openapi:micronaut-openapi-annotations")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("ch.qos.logback:logback-classic")
     testImplementation("io.micronaut:micronaut-http-client")
@@ -48,50 +51,53 @@ micronaut {
         incremental(true)
         annotations("com.example.*")
     }
-    openapi {
-        server(file("src/main/resources/openapi/openapi-v1.yml")) {
-            apiPackageName = "com.example.controller"
-            modelPackageName = "com.example.dto"
-        }
-        client("ClientV1", file("src/main/resources/openapi/client/client-v1.yml")) {
-            clientId.set("client-v1")
-            apiPackageName = "com.example.clientone.controller"
-            modelPackageName = "com.example.clientone.dto"
-        }
-        client("ClientV2", file("src/main/resources/openapi/client/client-v2.yml")) {
-            clientId.set("client-v2")
-            apiPackageName = "com.example.clienttwo.controller"
-            modelPackageName = "com.example.clienttwo.dto"
-        }
-        client("ClientV3", file("src/main/resources/openapi/client/client-v3.yml")) {
-            clientId.set("client-v3")
-            apiPackageName = "com.example.clientthree.controller"
-            modelPackageName = "com.example.clientthree.dto"
-        }
-        client("ClientV4", file("src/main/resources/openapi/client/client-v4.yml")) {
-            clientId.set("client-v4")
-            apiPackageName = "com.example.clientfour.controller"
-            modelPackageName = "com.example.clientfour.dto"
-        }
-        client("ClientV5", file("src/main/resources/openapi/client/client-v5.yml")) {
-            clientId.set("client-v5")
-            apiPackageName = "com.example.clientfive.controller"
-            modelPackageName = "com.example.clientfive.dto"
-        }
-        client("ClientV6", file("src/main/resources/openapi/client/client-v6.yml")) {
-            clientId.set("client-v6")
-            apiPackageName = "com.example.clientsix.controller"
-            modelPackageName = "com.example.clientsix.dto"
-        }
-        client("ClientV7", file("src/main/resources/openapi/client/client-v7.yml")) {
-            clientId.set("client-v7")
-            apiPackageName = "com.example.clientseven.controller"
-            modelPackageName = "com.example.clientseven.dto"
-        }
-    }
-
 }
 
+open class CommonGenerateTask @Inject constructor(
+        objectFactory: ObjectFactory
+) : GenerateTask(objectFactory) {
+    init {
+        generatorName.set("micronaut")
+
+        outputDir.set("${project.layout.buildDirectory.get()}/generated")
+
+        generateApiTests.set(false)
+        generateModelTests.set(false)
+
+        generateApiDocumentation.set(false)
+        generateModelDocumentation.set(false)
+
+        configOptions.set(
+                mapOf(
+                        "useGenericResponse" to "false",
+                        "useOptional" to "false",
+                        "supportAsync" to "true",
+                        "useBeanValidation" to "true", // Enable bean validation annotations
+                        "annotation" to "io.micronaut.openapi.annotation.OpenAPI"
+                )
+        )
+    }
+}
+
+tasks.register("generateApiServer", CommonGenerateTask::class) {
+    inputSpec.set("$rootDir/src/main/resources/openapi/openapi-v1.yml")
+
+    apiPackage.set("com.example.controller")
+    modelPackage.set("com.example.dto")
+}
+
+tasks.register("generateOpenApi") {
+    dependsOn(
+            tasks.getByPath("generateApiServer"))
+}
+
+java.sourceSets["main"].java {
+    srcDir("${project.layout.buildDirectory.get()}/generated/generated-sources/openapi")
+}
+tasks.compileJava {
+    dependsOn(tasks.getByPath("generateOpenApi"))
+    options.encoding = "UTF-8"
+}
 
 tasks.named<io.micronaut.gradle.docker.NativeImageDockerfile>("dockerfileNative") {
     jdkVersion = "21"
