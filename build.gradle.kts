@@ -93,10 +93,60 @@ tasks.register("generateApiServer", CommonGenerateTask::class) {
     apiPackage.set("com.example.controller")
     modelPackage.set("com.example.dto")
 }
+tasks.register("generateClientV1", CommonGenerateTask::class) {
+    inputSpec.set("$rootDir/src/main/resources/openapi/client/client-v1.yml")
+
+    apiPackage.set("com.example.clientone.controller")
+    modelPackage.set("com.example.clientone.dto")
+}
+tasks.register("generateClientV2", CommonGenerateTask::class) {
+    inputSpec.set("$rootDir/src/main/resources/openapi/client/client-v2.yml")
+
+    apiPackage.set("com.example.clienttwo.controller")
+    modelPackage.set("com.example.clienttwo.dto")
+}
+tasks.register("generateClientV3", CommonGenerateTask::class) {
+    inputSpec.set("$rootDir/src/main/resources/openapi/client/client-v3.yml")
+
+    apiPackage.set("com.example.clientthree.controller")
+    modelPackage.set("com.example.clientthree.dto")
+}
+tasks.register("generateClientV4", CommonGenerateTask::class) {
+    inputSpec.set("$rootDir/src/main/resources/openapi/client/client-v4.yml")
+
+    apiPackage.set("com.example.clientfour.controller")
+    modelPackage.set("com.example.clientfour.dto")
+}
+tasks.register("generateClientV5", CommonGenerateTask::class) {
+    inputSpec.set("$rootDir/src/main/resources/openapi/client/client-v5.yml")
+
+    apiPackage.set("com.example.clientfive.controller")
+    modelPackage.set("com.example.clientfive.dto")
+}
+tasks.register("generateClientV6", CommonGenerateTask::class) {
+    inputSpec.set("$rootDir/src/main/resources/openapi/client/client-v6.yml")
+
+    apiPackage.set("com.example.clientsix.controller")
+    modelPackage.set("com.example.clientsix.dto")
+}
+tasks.register("generateClientV7", CommonGenerateTask::class) {
+    inputSpec.set("$rootDir/src/main/resources/openapi/client/client-v7.yml")
+
+    apiPackage.set("com.example.clientseven.controller")
+    modelPackage.set("com.example.clientseven.dto")
+}
 
 tasks.register("generateOpenApi") {
     dependsOn(
-            tasks.getByPath("generateApiServer"))
+            tasks.getByPath("generateApiServer"),
+            tasks.getByPath("generateClientV1"),
+            tasks.getByPath("generateClientV2"),
+            tasks.getByPath("generateClientV3"),
+            tasks.getByPath("generateClientV4"),
+            tasks.getByPath("generateClientV5"),
+            tasks.getByPath("generateClientV6"),
+            tasks.getByPath("generateClientV7")
+    )
 }
 
 java.sourceSets["main"].java {
