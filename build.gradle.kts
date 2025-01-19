@@ -16,6 +16,12 @@ repositories {
     mavenCentral()
 }
 
+buildscript {
+    dependencies {
+        classpath("io.kokuwa.micronaut:micronaut-openapi-codegen:4.4.2")
+    }
+}
+
 dependencies {
     annotationProcessor("org.projectlombok:lombok")
     annotationProcessor("io.micronaut:micronaut-http-validation")
@@ -25,11 +31,12 @@ dependencies {
     implementation("io.micronaut.jsonschema:micronaut-json-schema-annotations")
     implementation("jakarta.validation:jakarta.validation-api")
     implementation("io.micronaut.serde:micronaut-serde-jackson")
+    implementation("io.micronaut:micronaut-http-client")
+    implementation("io.micronaut.validation:micronaut-validation")
     compileOnly("io.micronaut:micronaut-http-client")
 //    compileOnly("io.micronaut.openapi:micronaut-openapi-annotations")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("ch.qos.logback:logback-classic")
-    testImplementation("io.micronaut:micronaut-http-client")
 }
 
 
@@ -72,8 +79,7 @@ open class CommonGenerateTask @Inject constructor(
                         "useGenericResponse" to "false",
                         "useOptional" to "false",
                         "supportAsync" to "true",
-                        "useBeanValidation" to "true", // Enable bean validation annotations
-                        "annotation" to "io.micronaut.openapi.annotation.OpenAPI"
+                        "useBeanValidation" to "true"
                 )
         )
     }
