@@ -1,1 +1,1 @@
-## Micronaut io.micronaut.openapi Gradle plugin problems example project
+## Micronaut ```io.micronaut.openapi``` Gradle plugin problems example project
