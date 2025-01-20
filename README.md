@@ -1,4 +1,4 @@
-## Micronaut 4.7.4 Documentation
+## Micronaut io.micronaut.openapi Gradle plugin problems example project
 
 - [User Guide](https://docs.micronaut.io/4.7.4/guide/index.html)
 - [API Reference](https://docs.micronaut.io/4.7.4/api/index.html)
