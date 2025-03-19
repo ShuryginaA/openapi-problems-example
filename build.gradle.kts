@@ -3,7 +3,7 @@ plugins {
     id("com.github.johnrengelman.shadow") version "8.1.1"
     id("io.micronaut.application") version "4.4.4"
     id("io.micronaut.aot") version "4.4.4"
-    id("io.micronaut.openapi") version "4.4.5"
+    id("io.micronaut.openapi") version "4.5.0"
 }
 
 version = "0.1"
@@ -17,7 +17,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
     annotationProcessor("io.micronaut:micronaut-http-validation")
     annotationProcessor("io.micronaut.jsonschema:micronaut-json-schema-processor")
-    annotationProcessor("io.micronaut.openapi:micronaut-openapi")
+    annotationProcessor("io.micronaut.openapi:micronaut-openapi:6.14.0")
     implementation("io.micronaut:micronaut-jackson-databind")
     implementation("io.micronaut.jsonschema:micronaut-json-schema-annotations")
     implementation("jakarta.validation:jakarta.validation-api")
@@ -26,6 +26,7 @@ dependencies {
     implementation("io.micronaut.validation:micronaut-validation")
     implementation("io.micronaut.reactor:micronaut-reactor")
     implementation("io.micronaut.reactor:micronaut-reactor-http-client")
+    implementation("io.micronaut.openapi:micronaut-openapi:6.14.0")
     compileOnly("io.micronaut:micronaut-http-client")
     compileOnly("io.micronaut.openapi:micronaut-openapi-annotations")
     compileOnly("org.projectlombok:lombok")
